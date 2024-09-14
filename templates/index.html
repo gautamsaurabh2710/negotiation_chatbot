@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+
+        <title>Negotiation Chatbot</title>
+    </head>
+    <body>
+
+        <h1>Negotiation Chatbot</h1>
+        <form id="negotiation-form">
+        <label for="user-input">Enter your price offer:</label>
+        <input type="number" id="user-input" name="user_input">
+        <button type="submit">Negotiate</button>
+        </form>
+        <div id="bot-response"></div>
+
+    <script>
+        const form = document.getElementById('negotiation-form');
+        form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const userInput = document.getElementById('user-input').value;
+        const response = await fetch('/negotiate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_input: userInput }),
+        });
+        const botResponse = await response.json();
+        document.getElementById('bot-response').innerHTML = botResponse.bot_response;
+        });
+    </script>
+    </body>
+</html>

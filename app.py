@@ -1,10 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from openai import OpenAI
 
 app = Flask(__name__)
 
 # Set your OpenAI API key
-OpenAI.api_key = "sk-tDpy3z5my_8kb5xfNzufUKmY0Yi5JmFPaj4tghdu_YT3BlbkFJPta8aaVmyWrX-QzLrsskGdpHGZv8gSWZZys8gYwAAA"
+OpenAI.api_key = "YOUR_API_KEY"
 
 # Negotiation logic for price offers
 INITIAL_PRICE = 100
@@ -29,6 +29,10 @@ def negotiate():
     bot_response = negotiate_price(user_offer)
 
     return jsonify({"bot_response": bot_response})
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
